@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src = "script.js" defer></script>
+    <link rel = "stylesheet" href = "style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class = "header">
+        Header
+    </div>
+    <div class = "main">
+        <div class = "tools">
+            <div class = "color-control-container">
+                <label for = "colorpicker">Color Picker:</label>
+                <input type="color" id="colorpicker" value="#0000ff" name="colorpicker">
+            </div>
+            <div class = "size-control-container">
+                <label for="size">Size: <span class="selected-size">16</span></label>
+                <input type="range" name="size" id="size" min="1" max="50" value="16">
+            </div>
+            <div class = "grid-toggle-container">
+                <label for = "grid">Grid: </label>
+                <input type = "checkbox" name = "grid-toggle">
+            </div>
+        </div>
+        <div class = "grid-container">
+            
+        </div>
+    </div>
+    <div class = "footer">
+        Footer
+    </div>
+</body>
+</html>

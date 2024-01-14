@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.header{
+    border: 2px solid black;
+}
+.main{
+    border: 2px solid black;
+    display: flex;
+    gap:0px;
+}
+.footer{
+    border: 2px solid black;
+}
+.tools{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    margin-right: 0px;
+}
+.grid-container{
+    display: flex;
+    width: 500px;
+    height: 500px;
+
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    border: 1px solid gray;
+}
+.cell{
+    box-sizing: border-box;
+}
