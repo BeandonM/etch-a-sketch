@@ -1,14 +1,22 @@
 const DEFAULT_COLOR = '#000000';
 const DEFAULT_MODE = 'color'
 const DEFAULT_GRIDSIZE = 16;
+const DRAW = "draw";
+const ERASE = "erase";
+const RANDOM = "random";
+const CELL_BORDER = '1px solid lightgray';
 
 const GRID = document.querySelector('.grid-container');
 const GRID_SIZE_SLIDER = document.getElementById('size-slider');
 const GRID_TEXT = document.querySelector('.selected-size');
-
+const GRID_COLOR = document.getElementById('colorpicker');
+const GRID_TOGGLE = document.querySelector('input[name=grid-toggle]');
+let currentMode = DRAW
 let currentColor = DEFAULT_COLOR;
 let gridSize = DEFAULT_GRIDSIZE;
 let mouseDown = false;
+let showGrid = false;
+
 function setGridSizeText()
 {
     GRID_TEXT.textContent = `${GRID_SIZE_SLIDER.value}`;
@@ -27,16 +35,35 @@ function clearGrid()
         cell.style.backgroundColor = 'white';
     })
 }
+
 function createListeners()
 {
     GRID_SIZE_SLIDER.addEventListener("input",setGridSizeText,false);
     GRID_SIZE_SLIDER.addEventListener("change",updateGridSize,false);
+    GRID_COLOR.addEventListener("input",setColor,false);
     document.body.onmousedown = () => (mouseDown = true);
     document.body.onmouseup = () => (mouseDown = false);
+    GRID_TOGGLE.addEventListener('change', function () {
+        if (this.checked) {
+            document.querySelectorAll(".cell").forEach(square => {
+                square.style.border = CELL_BORDER;
+            });
+            showGrid = true;
+        } else {
+            document.querySelectorAll(".cell").forEach(square => {
+                square.style.border = 'none';
+            });
+            showGrid = false;
+        }
+    });
 }
 function setColor()
 {
-
+    currentColor = GRID_COLOR.value;
+}
+function getColor()
+{
+    return currentColor;
 }
 function setCellColor(e)
 {
@@ -44,7 +71,7 @@ function setCellColor(e)
     {
         return;
     }
-    e.target.style.backgroundColor = currentColor;
+    e.target.style.backgroundColor = getColor();
 }
 function createGrid(size)
 {
@@ -61,7 +88,11 @@ function createGrid(size)
             let scale = 100/size;
             cell.style.width = `${scale}%`
             cell.style.height = `${scale}%`
-            cell.style.border = '1px solid lightgray';
+            if (showGrid == true)
+            {
+                cell.style.border = CELL_BORDER;
+            }
+            /*cell.style.border = '1px solid lightgray';*/
             GRID.append(cell);
         }
     }
