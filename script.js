@@ -29,17 +29,19 @@ function setMode(mode)
     currentMode = mode;
 }
 
+function getMode()
+{
+    return currentMode;
+}
 function activateButton(mode)
 {
     COLOR_MODE.classList.remove('active');
     RANDOM_MODE.classList.remove('active');
     ERASE_MODE.classList.remove('active');
-    console.log("Here");
     switch(mode)
     {
         case DRAW:
         {
-            console.log("Yu");
             COLOR_MODE.classList.add('active');
             break;
         }
@@ -85,7 +87,7 @@ function createListeners()
     COLOR_MODE.onclick = () => setMode(DRAW);
     RANDOM_MODE.onclick = () => setMode(RANDOM);
     ERASE_MODE.onclick = () => setMode(ERASE);
-
+    CLEAR_CANVAS.onclick = () => clearGrid();
     document.body.onmousedown = () => (mouseDown = true);
     document.body.onmouseup = () => (mouseDown = false);
     GRID_TOGGLE.addEventListener('change', function () {
@@ -101,6 +103,7 @@ function createListeners()
             showGrid = false;
         }
     });
+    activateButton(currentMode);
 }
 
 function setColor()
@@ -112,13 +115,44 @@ function getColor()
 {
     return currentColor;
 }
+
+
+function getRandomColor()
+{
+    let randomR = Math.floor(Math.random() * 256);
+    let randomG = Math.floor(Math.random() * 256);
+    let randomB = Math.floor(Math.random() * 256);
+
+    return `rgb(${randomR}, ${randomG}, ${randomB})`;
+}
 function setCellColor(e)
 {
     if(e.type === 'mouseover' && !mouseDown)
     {
         return;
     }
-    e.target.style.backgroundColor = getColor();
+    let color = 'white';
+    switch(getMode())
+    {
+        case DRAW:
+        {
+            color = getColor();
+            break;
+        }
+
+        case RANDOM:
+        {
+            color = getRandomColor();
+            break;
+        }
+
+        case ERASE:
+        {
+            color = 'white';
+            break;
+        }
+    }
+    e.target.style.backgroundColor = color;
 }
 function createGrid(size)
 {
