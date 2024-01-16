@@ -11,11 +11,51 @@ const GRID_SIZE_SLIDER = document.getElementById('size-slider');
 const GRID_TEXT = document.querySelector('.selected-size');
 const GRID_COLOR = document.getElementById('colorpicker');
 const GRID_TOGGLE = document.querySelector('input[name=grid-toggle]');
+
+const COLOR_MODE = document.querySelector('.btnColor');
+const RANDOM_MODE = document.querySelector('.btnRandomColor');
+const ERASE_MODE = document.querySelector('.btnErase');
+const CLEAR_CANVAS = document.querySelector('.btnClearCanvas');
+
 let currentMode = DRAW
 let currentColor = DEFAULT_COLOR;
 let gridSize = DEFAULT_GRIDSIZE;
 let mouseDown = false;
 let showGrid = false;
+
+function setMode(mode)
+{
+    activateButton(mode);
+    currentMode = mode;
+}
+
+function activateButton(mode)
+{
+    COLOR_MODE.classList.remove('active');
+    RANDOM_MODE.classList.remove('active');
+    ERASE_MODE.classList.remove('active');
+    console.log("Here");
+    switch(mode)
+    {
+        case DRAW:
+        {
+            console.log("Yu");
+            COLOR_MODE.classList.add('active');
+            break;
+        }
+        case ERASE:
+        {
+            ERASE_MODE.classList.add('active');
+            break;
+        }
+        case RANDOM:
+        {
+            RANDOM_MODE.classList.add('active');
+            break;
+        }
+
+    }
+}
 
 function setGridSizeText()
 {
@@ -41,6 +81,11 @@ function createListeners()
     GRID_SIZE_SLIDER.addEventListener("input",setGridSizeText,false);
     GRID_SIZE_SLIDER.addEventListener("change",updateGridSize,false);
     GRID_COLOR.addEventListener("input",setColor,false);
+
+    COLOR_MODE.onclick = () => setMode(DRAW);
+    RANDOM_MODE.onclick = () => setMode(RANDOM);
+    ERASE_MODE.onclick = () => setMode(ERASE);
+
     document.body.onmousedown = () => (mouseDown = true);
     document.body.onmouseup = () => (mouseDown = false);
     GRID_TOGGLE.addEventListener('change', function () {
@@ -57,10 +102,12 @@ function createListeners()
         }
     });
 }
+
 function setColor()
 {
     currentColor = GRID_COLOR.value;
 }
+
 function getColor()
 {
     return currentColor;
