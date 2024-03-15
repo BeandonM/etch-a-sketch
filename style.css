@@ -12,7 +12,9 @@ body{
 }
 
 .header{
-    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+
     font-size: 52px;
 }
 .main{
@@ -21,7 +23,9 @@ body{
     gap:0px;
 }
 .footer{
-    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+
 }
 .tools{
     display: flex;
@@ -78,5 +82,5 @@ button {
 }
 
 button.active {
-    background-color: red
+    background-color: #c9c6c6
   }
